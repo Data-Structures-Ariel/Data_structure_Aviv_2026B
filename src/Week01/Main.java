@@ -1,7 +1,8 @@
 package Week01;
 
-import java.util.Random;
 
+import java.util.Random;
+//Week 1 - Doubly and Circular Linked Lists
 public class Main {
     static Random rd = new Random();
 
@@ -10,6 +11,7 @@ public class Main {
                 chain = new Node<>(1);
         buildRand(chain, 10);
         printChain(chain);
+
     }
 
     public static void buildRand(Node<Integer> chain, int size) {
