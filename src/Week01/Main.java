@@ -7,7 +7,12 @@ public class Main {
 
 
     }
+    public static boolean isBinaryChain(Node<Integer> chain){
 
+
+
+        return true;
+    }
 
 
 }
