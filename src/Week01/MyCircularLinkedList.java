@@ -6,13 +6,13 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
 
-public class MyLinkedListWithTail<E> implements List<E> {
+public class MyCircularLinkedList<E> implements List<E> {
 
     private Node<E> head;
     private Node<E> tail;
     private int size;
 
-    public MyLinkedListWithTail() {
+    public MyCircularLinkedList() {
         this.size = 0;
         this.head = null;
         this.tail = null;
@@ -45,10 +45,11 @@ public class MyLinkedListWithTail<E> implements List<E> {
     //O(1)
     @Override
     public boolean add(E e) {
-        Node<E> newNode = new Node<>(e);
-        if (head == null)
+        Node<E> newNode = new Node<>(e, head);
+        if (head == null) {
             head = tail = newNode;
-        else {
+            newNode.setNext(newNode);
+        } else {
             tail.setNext(newNode);
             tail = newNode;
         }
@@ -62,29 +63,37 @@ public class MyLinkedListWithTail<E> implements List<E> {
         if (isEmpty())
             return false;
         if (o.equals(head.getVal())) {
+            if (size == 1) {
+                clear();
+                return true;
+            }
             head = head.getNext();
-            if (head == null)
-                tail = null;
+            tail.setNext(head);
             size--;
             return true;
         }
 
-        Node<E> prev = null;
-        Node<E> current = head;
-        while (current != null && !o.equals(current.getVal())) {
+        Node<E> prev = head;
+        Node<E> current = head.getNext();
+
+        while (current != head && !o.equals(current.getVal())) {
             prev = current;
             current = current.getNext();
         }
-        if (current == null)
+        if (current == head)
             return false;
-        if (prev != null) {
-            prev.setNext(current.getNext());
-            if (tail == current)
-                tail = prev;
-            size--;
-            return true;
+
+
+        prev.setNext(current.getNext());
+        if (tail == current) {
+            tail = prev;
+            tail.setNext(head);
         }
-        return false;
+
+        size--;
+        return true;
+
+
     }
 
     @Override
