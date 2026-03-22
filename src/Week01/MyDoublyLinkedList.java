@@ -1,10 +1,12 @@
 package Week01;
 
-
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
+
+import Structures.Node;
+
 
 public class MyDoublyLinkedList<E> implements List<E> {
 
@@ -17,12 +19,12 @@ public class MyDoublyLinkedList<E> implements List<E> {
         this.head = null;
         this.tail = null;
     }
-
+    //O(1)
     @Override
     public int size() {
         return size;
     }
-
+    //O(1)
     @Override
     public boolean isEmpty() {
         return size == 0 || head == null;
@@ -50,6 +52,7 @@ public class MyDoublyLinkedList<E> implements List<E> {
             head = tail = newNode;
         else {
             tail.setNext(newNode);
+            newNode.setPrev(tail);
             tail = newNode;
         }
         size++;
@@ -65,26 +68,30 @@ public class MyDoublyLinkedList<E> implements List<E> {
             head = head.getNext();
             if (head == null)
                 tail = null;
+            else
+                head.setPrev(null);
             size--;
             return true;
         }
-
-        Node<E> prev = null;
         Node<E> current = head;
         while (current != null && !o.equals(current.getVal())) {
-            prev = current;
             current = current.getNext();
         }
         if (current == null)
             return false;
-        if (prev != null) {
-            prev.setNext(current.getNext());
-            if (tail == current)
-                tail = prev;
-            size--;
-            return true;
+        Node<E> next = current.getNext();
+        Node<E> prev = current.getPrev();
+        prev.setNext(next);
+
+        if (tail == current) {
+            tail = prev;
         }
-        return false;
+        else {
+            next.setPrev(prev);
+        }
+
+        size--;
+        return true;
     }
 
     @Override
@@ -172,6 +179,8 @@ public class MyDoublyLinkedList<E> implements List<E> {
             Node<E> next = temp.getNext();
             newNode.setNext(next);
             temp.setNext(newNode);
+            next.setPrev(newNode);
+            newNode.setPrev(temp);
             size++;
         }
     }
