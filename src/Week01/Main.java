@@ -1,7 +1,5 @@
 package Week01;
 
-
-import java.util.LinkedList;
 import java.util.Random;
 //Week 1 - Doubly and Circular Linked Lists
 public class Main {
