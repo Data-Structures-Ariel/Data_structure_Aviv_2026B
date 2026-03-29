@@ -1,4 +1,4 @@
-package Week01.tasks;
+package Week02.tasks;
 
 import Structures.Node;
 

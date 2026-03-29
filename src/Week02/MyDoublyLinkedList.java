@@ -1,4 +1,4 @@
-package Week01;
+package Week02;
 
 import java.util.Collection;
 import java.util.Iterator;
