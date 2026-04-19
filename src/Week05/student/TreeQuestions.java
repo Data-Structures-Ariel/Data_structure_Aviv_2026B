@@ -58,4 +58,9 @@ public class TreeQuestions {
         // TODO: Implement this method.
         return 0;
     }
+
+    private static <T> BinNode<T> build(T[] o1, T[] o2) {
+
+        return null;
+    }
 }
