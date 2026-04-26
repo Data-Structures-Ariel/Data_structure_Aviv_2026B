@@ -1,6 +1,8 @@
 package Week06;
 
 import Structures.BinNode;
+import Week06.task.BST;
+import Week06.task.Student;
 
 import java.util.LinkedList;
 import java.util.Queue;
@@ -34,7 +36,13 @@ public class Main {
         levelOrder(root);
         insert(root, value);
         levelOrder(root);
+        BinNode<Integer> root1 = null;
+        for (int i = 0; i < 100000; i++) {
+            root1 = insertToBST(root1, i);
+//            levelOrder(root1);
+        }
 
+        BST<Student> studentBST = new BST<Student>();
     }
 
     private static void add(BinNode<Integer> root, int value) {
@@ -51,8 +59,6 @@ public class Main {
             if (!root.hasRight())
                 root.setRight(new BinNode<>(value));
         }
-
-
     }
 
     private static <E> BinNode<E> insert(BinNode<E> root, E value) {
@@ -64,6 +70,35 @@ public class Main {
             root.setLeft(insert(root.getLeft(), value));
         else
             root.setRight(insert(root.getRight(), value));
+
+        return root;
+    }
+
+    private static void addToBST(BinNode<Integer> root, int value) {
+        if (root == null)
+            return;
+
+        boolean bool = root.getValue() > value;
+        if (bool) {
+            addToBST(root.getLeft(), value);
+            if (!root.hasLeft())
+                root.setLeft(new BinNode<>(value));
+        } else {
+            addToBST(root.getRight(), value);
+            if (!root.hasRight())
+                root.setRight(new BinNode<>(value));
+        }
+    }
+
+    private static BinNode<Integer> insertToBST(BinNode<Integer> root, Integer value) {
+        if (root == null)
+            return new BinNode<>(value);
+
+        boolean bool = root.getValue() > value;
+        if (bool)
+            root.setLeft(insertToBST(root.getLeft(), value));
+        else
+            root.setRight(insertToBST(root.getRight(), value));
 
         return root;
     }
