@@ -31,7 +31,6 @@ public class Main {
     }
 
     private static <T> BinNode<T> build(T[] o1, T[] o2) {
-
         return  null;
     }
 
